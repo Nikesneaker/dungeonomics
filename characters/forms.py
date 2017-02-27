@@ -10,9 +10,9 @@ class TinyMCEForm(forms.ModelForm):
             )
 
 
-class MonsterForm(TinyMCEForm):
+class CharacterForm(TinyMCEForm):
     class Meta:
-        model = models.Monster
+        model = models.Character
         fields = [
             'name',
             'alignment',
@@ -39,72 +39,17 @@ class MonsterForm(TinyMCEForm):
             'traits',
             'actions',
             'notes',
-        ]
-
-
-class NPCForm(TinyMCEForm):
-    class Meta:
-        model = models.NPC
-        fields = [
-            'name',
-            'alignment',
-            'size',
-            'languages',
-            'strength',
-            'dexterity',
-            'constitution',
-            'intelligence',
-            'wisdom',
-            'charisma',
-            'armor_class',
-            'hit_points',
-            'speed',
-            'saving_throws',
-            'skills',
-            'npc_class',
+            'character_class',
             'age',
             'height',
             'weight',
-            'creature_type',
-            'damage_vulnerabilities',
-            'damage_immunities',
-            'damage_resistances',
-            'condition_immunities',
-            'senses',
-            'challenge_rating',
-            'traits',
-            'actions',
-            'notes',
-        ]
-
-class PlayerForm(TinyMCEForm):
-    class Meta:
-        model = models.Player
-        fields = [
-            'player_name',
-            'character_name',
             'level',
             'xp',
             'race',
-            'character_class',
             'background',
-            'alignment',
-            'armor_class',
             'initiative',
             'speed',
             'proficiency_bonus',
-            'hit_points',
-            'strength',
-            'dexterity',
-            'constitution',
-            'intelligence',
-            'wisdom',
-            'charisma',
-            'saving_throws',
-            'skills',
-            'age',
-            'height',
-            'weight',
             'languages',
             'personality',
             'ideals',
@@ -115,60 +60,24 @@ class PlayerForm(TinyMCEForm):
             'spells',
             'proficiencies',
             'equipment',
-            'notes',
         ]
 
 
-class DeleteMonsterForm(forms.ModelForm):
+class DeleteCharacterForm(forms.ModelForm):
     class Meta:
-        model = models.Monster
+        model = models.Character
         fields = ['name']
 
 
-class DeleteNPCForm(forms.ModelForm):
+class CopyCharacterForm(forms.ModelForm):
     class Meta:
-        model = models.NPC
+        model = models.Character
         fields = ['name']
 
 
-class DeletePlayerForm(forms.ModelForm):
+class ImportCharacterForm(forms.ModelForm):
     class Meta:
-        model = models.Player
-        fields = [
-            'name',
-            'character_name',
-            ]
-
-
-class CopyMonsterForm(forms.ModelForm):
-    class Meta:
-        model = models.Monster
-        fields = ['name']
-
-
-class CopyNPCForm(forms.ModelForm):
-    class Meta:
-        model = models.NPC
-        fields = ['name']
-
-
-class CopyPlayerForm(forms.ModelForm):
-    class Meta:
-        model = models.Player
-        fields = ['player_name']
-
-
-class ImportMonsterForm(forms.ModelForm):
-    class Meta:
-        model = models.Monster
-        fields = [
-            'name',
-        ]
-
-
-class ImportNPCForm(forms.ModelForm):
-    class Meta:
-        model = models.NPC
+        model = models.Character
         fields = [
             'name',
         ]
@@ -176,24 +85,18 @@ class ImportNPCForm(forms.ModelForm):
 
 class SRDMonsterForm(forms.ModelForm):
     class Meta:
-        model = models.Monster
+        model = models.Character
         fields = ['name']
 
 
 class SRDNPCForm(forms.ModelForm):
     class Meta:
-        model = models.NPC
+        model = models.Character
         fields = ['name']
 
 
-MonsterFormSet = forms.modelformset_factory(
-    models.Monster,
-    form=MonsterForm,
-    extra=0,
-)
-
-NPCFormSet = forms.modelformset_factory(
-    models.NPC,
-    form=NPCForm,
+CharacterFormSet = forms.modelformset_factory(
+    models.Character,
+    form=CharacterForm,
     extra=0,
 )

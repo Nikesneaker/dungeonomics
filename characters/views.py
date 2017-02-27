@@ -20,6 +20,30 @@ import json
 
 
 @login_required
+def character_detail(request, character_pk=None):
+    user = None
+    if request.user.is_authenticated():
+        user = request.user.pk
+    characters = sorted(models.Character.objects.filter(user=user),
+        key=lambda character: character.name.lower()
+        )
+    if character_pk:
+        this_character = get_object_or_404(models.Character, pk=character_pk)
+        if this_character.user == request.user:
+            return render(request, 'characters/character_detail.html', {'this_character': this_character, 'characters': characters})
+        else:
+            raise Http404
+    elif len(characters) > 0:
+        this_character = characters[0]
+        if this_monster.user == request.user:
+            return render(request, 'characters/character_detail.html', {'this_character': this_character, 'characters': characters})
+        else:
+            raise Http404
+    else:
+        this_character = None
+    return render(request, 'characters/character_detail.html', {'this_character': this_character, 'characters': characters})
+
+@login_required
 def monster_detail(request, monster_pk=None):
     user = None
     if request.user.is_authenticated():
