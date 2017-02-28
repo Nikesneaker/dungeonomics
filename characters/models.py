@@ -12,6 +12,7 @@ def score_to_mod_string(score):
 class Character(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     name = models.CharField(max_length=255, default='')
+    player_name = models.CharField(max_length=255, default='', blank=True)
     level = models.IntegerField(default=1)
     ALIGNMENT_CHOICES = (
         ('Unaligned', 'Unaligned'),
