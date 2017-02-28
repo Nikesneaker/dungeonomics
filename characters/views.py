@@ -35,7 +35,7 @@ def character_detail(request, character_pk=None):
             raise Http404
     elif len(characters) > 0:
         this_character = characters[0]
-        if this_monster.user == request.user:
+        if this_character.user == request.user:
             return render(request, 'characters/character_detail.html', {'this_character': this_character, 'characters': characters})
         else:
             raise Http404
