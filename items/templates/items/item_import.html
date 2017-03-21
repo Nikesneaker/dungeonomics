@@ -1,0 +1,27 @@
+{% extends 'layout.html' %}
+{% load bootstrap3 %}
+
+{% block title %}Import Items | {{ block.super }}{% endblock %}
+
+{% block body_content %}
+    <div class="row campaign-row">
+        <div class="col-md-12">
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <h3 class="panel-title">Import Items</h3>
+                </div>
+                <div class="panel-body">
+                    <form method="POST" action="">
+                        {% csrf_token %}
+                        <textarea class="form-control" name="user_import" placeholder="Paste exported items here" rows="10"></textarea>
+                </div>
+                <div class="panel-footer clearfix">
+                        <a href="{% url 'items:item_detail' %}" class="btn btn-default">Cancel</a>
+                        <input type="submit" class="btn btn-primary pull-right" value="Import">
+                    </form>
+                </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

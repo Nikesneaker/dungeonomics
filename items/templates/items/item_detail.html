@@ -23,7 +23,9 @@
                                 <a href="#" class="dropdown-cog dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><i class="fa fa-lg fa-cog" aria-hidden="true"></i> <span class="caret"></span></a>
                                 <ul class="dropdown-menu">
                                     <li><a href="{% url 'items:item_create' %}"><span class="text-success"><i class="fa fa-fw fa-plus" aria-hidden="true"></i> Create item</span></a></li>
-                                </ul>
+									<li><a href="{% url 'items:item_export' %}"><span class="text-warning"><i class="fa fa-fw fa-download" aria-hidden="true"></i> Export items</span></a></li>
+									<li><a href="{% url 'items:item_import' %}"><span class="text-primary"><i class="fa fa-fw fa-upload" aria-hidden="true"></i> Import items</span></a></li>
+								</ul>
                             </li>
                         </ul>
                     </span>

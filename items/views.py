@@ -6,11 +6,15 @@ from django.http import HttpResponseRedirect, Http404
 from django.shortcuts import get_object_or_404, render
 from django.urls import reverse_lazy
 
+from itertools import chain
+
 from . import forms
 from . import models
 
 from characters import models as character_models
 from locations import models as location_models
+
+import json
 
 
 @login_required
@@ -142,3 +146,42 @@ def item_copy(request, item_pk):
     else:
         raise Http404
     return render(request, 'items/item_copy.html', {'form': form, 'item': item})
+
+@login_required
+def item_import(request):
+    user_import = None
+    form = forms.ImportItemForm()
+    if request.method == 'POST':
+        if request.POST.get('user_import'):
+            user_import = request.POST.get('user_import')
+            user_import = json.loads(user_import, strict=False)
+        else:
+            return Http404
+        form = forms.ImportItemForm(request.POST)
+        if "items" in user_import:
+            for item, item_attributes in user_import["items"].items():
+                new_item = models.Item(
+                    user=request.user,
+                    name=item,
+                    item_type=item_attributes["item_type"],
+                    rarity=item_attributes["rarity"],
+                    description=item_attributes["description"]
+                )
+                new_item.save()
+            return HttpResponseRedirect(reverse('items:item_detail'))
+    return render(request, 'items/item_import.html', {'form': form, 'user_import': user_import})
+
+@login_required
+def item_export(request):
+    user = None
+    if request.user.is_authenticated():
+        user = request.user.pk
+    items = sorted(models.Item.objects.filter(user=user),
+        key=lambda item: item.name.lower()
+        )
+    if items:
+        for item in items:
+            item.description = json.dumps(item.description)
+        return render(request, 'items/item_export.html', {'items': items})
+    else:
+        raise Http404

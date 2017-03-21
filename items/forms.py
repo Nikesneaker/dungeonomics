@@ -31,3 +31,10 @@ class CopyItemForm(forms.ModelForm):
     class Meta:
         model = models.Item
         fields = ['name']
+
+class ImportItemForm(forms.ModelForm):
+    class Meta:
+        model = models.Item
+        fields = [
+            'name',
+        ]
